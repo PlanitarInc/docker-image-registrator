@@ -15,12 +15,13 @@ push:
 
 clean:
 	docker rmi -f ${IMAGE_NAME} || true
+	rm -rf ./bin/
 
 test:
 
 bin/registrator:
 	mkdir -p bin
 	docker run --rm -v `pwd`/bin:/out planitar/dev-go /bin/bash -lc ' \
-	  go get "github.com/PlanitarInc/registrator" && \
+	  gob "github.com/PlanitarInc/registrator" && \
 	  cp $$GOPATH/bin/registrator /out \
 	'
