@@ -6,8 +6,10 @@ Run in `dev` cluster:
 ```sh
 docker run -d -h $HOSTNAME \
     -v /var/run/docker.sock:/tmp/docker.sock \
+    -e DOCKER_HOST="unix:///tmp/docker.sock" \
     -e SERVICE_IGNORE="" \
-    PlanitarInc/registrator skydns2:///dev.plntr.ca
+    planitar/registrator skydns2:///dev.plntr.ca \
+    -ttl 30 -refresh-ttl 10
 ```
 
 To run container that should be ignored by `registrator`
@@ -16,7 +18,7 @@ To run container that should be ignored by `registrator`
 ```sh
 docker run -d -P \
     -e SERVICE_IGNORE="" \
-    PlanitarInc/base bash
+    planitar/base bash
 ```
 
 Any other running container is going to be registered as:
@@ -38,5 +40,5 @@ E.g. registering `redis.0` container as instance `00` of `redis` service:
 docker run -d -p 6379:6379 --name redis.0 \
     -e SERVICE_NAME="redis" \
     -e SERVICE_ID="00" \
-    PlanitarInc/redis bash
+    planitar/redis bash
 ```
