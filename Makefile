@@ -22,6 +22,5 @@ test:
 bin/registrator:
 	mkdir -p bin
 	docker run --rm -v `pwd`/bin:/out planitar/dev-go /bin/bash -lc ' \
-	  gob "github.com/PlanitarInc/registrator" && \
-	  cp $$GOPATH/bin/registrator /out \
+	  gobldcp "github.com/PlanitarInc/registrator" registrator /out; \
 	'
