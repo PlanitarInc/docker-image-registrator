@@ -22,5 +22,9 @@ test:
 bin/registrator:
 	mkdir -p bin
 	docker run --rm -v `pwd`/bin:/out planitar/dev-go /bin/bash -lc ' \
-	  gobldcp "github.com/PlanitarInc/registrator" registrator /out; \
+	  go get github.com/PlanitarInc/registrator && \
+	  cd $$GOPATH/src/github.com/PlanitarInc/registrator && \
+	  git checkout stable && \
+	  go build && go test && \
+	  cp $$GOPATH/bin/registrator /out; \
 	'
